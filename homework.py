@@ -86,9 +86,9 @@ class SportsWalking(Training):
     def get_spent_calories(self) -> float:
         coeff_calorie_1 = 0.035
         coeff_calorie_2 = 0.029
-        energy = ((coeff_calorie_1 * self.weight + (self.get_mean_speed() **
-                                                    2 // self.height) * coeff_calorie_2 *
-                   self.weight) * self.duration * 60)
+        energy = ((coeff_calorie_1 * self.weight
+                   + (self.get_mean_speed() ** 2 // self.height)
+                   * coeff_calorie_2 * self.weight) * self.duration * 60)
         return energy
 
 
@@ -113,8 +113,8 @@ class Swimming(Training):
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
-        speed = (self.length_pool * self.count_pool /
-                 self.M_IN_KM / self.duration)
+        speed = (self.length_pool * self.count_pool
+                 / self.M_IN_KM / self.duration)
         return speed
 
     def get_spent_calories(self) -> float:
@@ -130,7 +130,8 @@ def read_package(workout_type: str, data: list) -> Training:
     dictionary = {'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking}
     if workout_type == 'SWM':
         training = dictionary[workout_type](action=data[0], duration=data[1],
-                                            weight=data[2], length_pool=data[3],
+                                            weight=data[2],
+                                            length_pool=data[3],
                                             count_pool=data[4])
         return training
     elif workout_type == 'RUN':
