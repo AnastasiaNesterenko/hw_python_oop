@@ -48,7 +48,8 @@ class Training:
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
         message = InfoMessage(self.__class__.__name__, self.duration,
-                              self.get_distance(), self.get_mean_speed(), self.get_spent_calories())
+                              self.get_distance(), self.get_mean_speed(),
+                              self.get_spent_calories())
         return message
 
 
@@ -86,7 +87,8 @@ class SportsWalking(Training):
         coeff_calorie_1 = 0.035
         coeff_calorie_2 = 0.029
         energy = ((coeff_calorie_1 * self.weight + (self.get_mean_speed() **
-                                                    2 // self.height) * coeff_calorie_2 * self.weight) * self.duration * 60)
+                                                    2 // self.height) * coeff_calorie_2 *
+                   self.weight) * self.duration * 60)
         return energy
 
 
@@ -128,7 +130,8 @@ def read_package(workout_type: str, data: list) -> Training:
     dictionary = {'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking}
     if workout_type == 'SWM':
         training = dictionary[workout_type](action=data[0], duration=data[1],
-                                            weight=data[2], length_pool=data[3], count_pool=data[4])
+                                            weight=data[2], length_pool=data[3],
+                                            count_pool=data[4])
         return training
     elif workout_type == 'RUN':
         training = dictionary[workout_type](action=data[0], duration=data[1],
