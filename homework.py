@@ -56,13 +56,6 @@ class Training:
 class Running(Training):
     """Тренировка: бег."""
 
-    def __init__(self,
-                 action: int,
-                 duration: float,
-                 weight: float,
-                 ) -> None:
-        super().__init__(action, duration, weight)
-
     def get_spent_calories(self) -> float:
         coeff_calorie_1 = 18
         coeff_calorie_2 = 20
@@ -107,10 +100,6 @@ class Swimming(Training):
         self.length_pool = length_pool
         self.count_pool = count_pool
 
-    def get_distance(self) -> float:
-        """Получить дистанцию в км."""
-        return super().get_distance()
-
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
         speed = (self.length_pool * self.count_pool
@@ -121,26 +110,18 @@ class Swimming(Training):
         energy = (self.get_mean_speed() + 1.1) * 2 * self.weight
         return energy
 
-    def __name__(self):
-        pass
-
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     dictionary = {'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking}
     if workout_type == 'SWM':
-        training = dictionary[workout_type](action=data[0], duration=data[1],
-                                            weight=data[2],
-                                            length_pool=data[3],
-                                            count_pool=data[4])
+        training = dictionary[workout_type](*data)
         return training
     elif workout_type == 'RUN':
-        training = dictionary[workout_type](action=data[0], duration=data[1],
-                                            weight=data[2])
+        training = dictionary[workout_type](*data)
         return training
     elif workout_type == 'WLK':
-        training = dictionary[workout_type](action=data[0], duration=data[1],
-                                            weight=data[2], height=data[3])
+        training = dictionary[workout_type](*data)
         return training
 
 
